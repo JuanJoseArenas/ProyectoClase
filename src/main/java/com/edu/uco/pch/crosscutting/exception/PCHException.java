@@ -22,6 +22,11 @@ public class PCHException extends RuntimeException {
 		setMensajeUsuario(mensajeUsuario);
 		setLugar(lugar);
 	}
+	public PCHException(String mensajeTecnico, String mensajeUsusario, Lugar lugar) {
+		super(mensajeTecnico);
+		setMensajeUsuario(mensajeUsusario);
+		setLugar(lugar);
+	}
 
 	private final void setMensajeUsuario(String mensajeUsuario) {
 		this.mensajeUsuario = TextHelper.applyTrim(mensajeUsuario);

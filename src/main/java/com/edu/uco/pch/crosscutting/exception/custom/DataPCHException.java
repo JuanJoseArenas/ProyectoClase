@@ -10,8 +10,12 @@ public final class DataPCHException extends PCHException {
 	public DataPCHException(final String mensajeUsuario) {
 		super(mensajeUsuario, Lugar.DATA);
 	}
+	
+	public DataPCHException(final String mensajeUsuario, final String mensajeTecnico) {
+		super(mensajeUsuario,mensajeTecnico, Lugar.DATA);
+	}
 
-	public DataPCHException(final String mensajeTecnico, final String mensajeUsuario, final Lugar lugar,
+	public DataPCHException(final String mensajeTecnico, final String mensajeUsuario,
 			Throwable exeptionRaiz) {
 		super(mensajeTecnico, mensajeUsuario, Lugar.DATA, exeptionRaiz);
 	}

@@ -1,7 +1,10 @@
 package com.edu.uco.pch.crosscutting.Helper;
 
+import org.springframework.core.style.ToStringCreator;
+
 public final class TextHelper {
 	public static final String EMPTY = "";
+	public static final String UNDERLINE = "_";
 	
 	private TextHelper() {
 		super();
@@ -25,12 +28,16 @@ public final class TextHelper {
 	public static final String applyTrim(final String string) {
 		return getDefaultValue(string).trim();
 	}
-	
-	public static final boolean isNull(final Object obj) {
-        return obj == null;
-	}
-	
-	public static final boolean isNullOrEmpty(final Object obj) {
-		return isNull(obj) || EMPTY.equals((obj));
+
+	public static final String concatenate(final String...strings) {
+		final var sb = new StringBuilder(EMPTY);
+		
+		if(ObjectHelper.getObjectHelper().isNull(strings)) {
+			for (final var string : strings) {
+				sb.append(applyTrim(string));
+			}
+		}
+		
+		return sb.toString();
 	}
 }
