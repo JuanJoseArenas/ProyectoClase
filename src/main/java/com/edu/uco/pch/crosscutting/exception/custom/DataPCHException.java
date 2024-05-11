@@ -6,18 +6,19 @@ import com.edu.uco.pch.crosscutting.exception.enums.Lugar;
 public final class DataPCHException extends PCHException {
 
 	private static final long serialVersionUID = 361322697118899300L;
+	private static final Lugar lugar = Lugar.DATA;
 
 	public DataPCHException(final String mensajeUsuario) {
-		super(mensajeUsuario, Lugar.DATA);
+		super(mensajeUsuario, lugar);
 	}
 	
 	public DataPCHException(final String mensajeUsuario, final String mensajeTecnico) {
-		super(mensajeUsuario,mensajeTecnico, Lugar.DATA);
+		super(mensajeUsuario,mensajeTecnico, lugar);
 	}
 
 	public DataPCHException(final String mensajeTecnico, final String mensajeUsuario,
-			Throwable exeptionRaiz) {
-		super(mensajeTecnico, mensajeUsuario, Lugar.DATA, exeptionRaiz);
+			Throwable exepcionRaiz) {
+		super(mensajeTecnico, mensajeUsuario, lugar, exepcionRaiz);
 	}
 
 }

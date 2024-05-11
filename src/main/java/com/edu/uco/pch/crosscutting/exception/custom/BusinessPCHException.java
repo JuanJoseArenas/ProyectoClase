@@ -6,17 +6,18 @@ import com.edu.uco.pch.crosscutting.exception.enums.Lugar;
 public final class BusinessPCHException extends PCHException {
 
 	private static final long serialVersionUID = 361322697118899300L;
+	private static final Lugar lugar = Lugar.BUSINESS;
 
 	public BusinessPCHException(final String mensajeUsuario) {
-		super(mensajeUsuario, Lugar.BUSINESS);
+		super(mensajeUsuario, lugar);
 	}
 
 	public BusinessPCHException(final String mensajeUsuario, final String mensajeTecnico) {
-		super(mensajeUsuario,mensajeTecnico, Lugar.DATA);
+		super(mensajeUsuario,mensajeTecnico, lugar);
 	}
 	public BusinessPCHException(final String mensajeTecnico, final String mensajeUsuario,
-			Throwable exeptionRaiz) {
-		super(mensajeTecnico, mensajeUsuario, Lugar.BUSINESS, exeptionRaiz);
+			Throwable exepcionRaiz) {
+		super(mensajeTecnico, mensajeUsuario, lugar, exepcionRaiz);
 	}
 
 }
