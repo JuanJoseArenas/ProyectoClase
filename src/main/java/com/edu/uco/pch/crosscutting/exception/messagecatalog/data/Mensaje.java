@@ -3,7 +3,6 @@ package com.edu.uco.pch.crosscutting.exception.messagecatalog.data;
 public final class Mensaje {
 	
 	private CodigoMensaje codigo;
-	private TipoMensaje tipo;
 	private String contenido;
 	
 	public Mensaje(final CodigoMensaje codigo, final String contenido) {
