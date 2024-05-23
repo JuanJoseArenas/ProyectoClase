@@ -53,11 +53,11 @@ public class CiudadDomain {
 		this.departamento = ObjectHelper.getObjectHelper().getDefaultValue(departamento, DepartamentoDomain.build());
 	}
 	
-	private final String getNombre() {
+	public final String getNombre() {
 		return nombre;
 	}
 	
-	private final DepartamentoDomain getDepartamento() {
+	public final DepartamentoDomain getDepartamento() {
 		return departamento;
 	}
 }

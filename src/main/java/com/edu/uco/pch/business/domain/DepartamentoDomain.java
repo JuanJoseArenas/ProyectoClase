@@ -33,7 +33,7 @@ public final class DepartamentoDomain {
 		
 	}
 
-	private final UUID getId() {
+	public final UUID getId() {
 		return id;
 	}
 

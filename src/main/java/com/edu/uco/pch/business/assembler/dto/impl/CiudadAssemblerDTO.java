@@ -11,11 +11,7 @@ public final class CiudadAssemblerDTO implements AssemblerDTO<CiudadDomain, Ciud
 	
 	private static final AssemblerDTO<CiudadDomain, CiudadDTO> instance = 
 			new CiudadAssemblerDTO();
-	
-	private static final AssemblerDTO<DepartamentoDomain, DepartamentoDTO> departamentoAssembler
-	= DepartamentoAssemblerDTO.getInstance();
-	
-	
+		
 	private CiudadAssemblerDTO() {
 		super();
 	}
@@ -25,6 +21,8 @@ public final class CiudadAssemblerDTO implements AssemblerDTO<CiudadDomain, Ciud
 	}
 	
 	
+	private static final AssemblerDTO<DepartamentoDomain, DepartamentoDTO> departamentoAssembler
+	= DepartamentoAssemblerDTO.getInstance();
 	
 	@Override
 	public CiudadDomain toDomain(CiudadDTO data) {

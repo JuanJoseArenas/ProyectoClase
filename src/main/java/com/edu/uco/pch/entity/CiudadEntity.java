@@ -2,6 +2,8 @@ package com.edu.uco.pch.entity;
 
 import java.util.UUID;
 
+import com.edu.uco.pch.crosscutting.Helper.TextHelper;
+
 public final class CiudadEntity {
 	private UUID id;
 	private String nombre;
@@ -35,7 +37,7 @@ public final class CiudadEntity {
 		return nombre;
 	}
 	public final CiudadEntity setNombre(final String nombre) {
-		this.nombre = nombre;
+		this.nombre = TextHelper.applyTrim(nombre);
 		return this;
 	}
 	public final DepartamentoEntity getDepartamento() {

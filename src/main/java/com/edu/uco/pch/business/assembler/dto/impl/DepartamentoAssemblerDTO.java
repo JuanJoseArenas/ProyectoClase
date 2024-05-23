@@ -24,17 +24,23 @@ public final class DepartamentoAssemblerDTO implements AssemblerDTO<Departamento
 	}
 	
 	@Override
-	public DepartamentoDomain toDomain(DepartamentoDTO data) {
+	public DepartamentoDomain toDomain(final DepartamentoDTO data) {
 		var departamentoDtoTmp = ObjectHelper.getObjectHelper().getDefaultValue(data, DepartamentoDTO.build());
 		var paisDomain = paisAssembler.toDomain(departamentoDtoTmp.getPais());
-		return DepartamentoDomain.build(departamentoDtoTmp.getId(), departamentoDtoTmp.getNombre(),paisDomain);
+		return DepartamentoDomain.build(
+				departamentoDtoTmp.getId(),
+				departamentoDtoTmp.getNombre(),
+				paisDomain);
 	}
 
 	@Override
 	public DepartamentoDTO toDto(DepartamentoDomain domain) {
 		var departamentoDomainTmp = ObjectHelper.getObjectHelper().getDefaultValue(domain, DepartamentoDomain.build());
-		
-		return null;
+		var paisDto = paisAssembler.toDto(departamentoDomainTmp.getPais());
+		return DepartamentoDTO.build()
+				.setId(departamentoDomainTmp.getId())
+				.setNombre(departamentoDomainTmp.getNombre())
+				.setPais(paisDto);
 	}
 	
 

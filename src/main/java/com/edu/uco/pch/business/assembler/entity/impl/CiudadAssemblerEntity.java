@@ -25,13 +25,13 @@ public class CiudadAssemblerEntity implements AssembleEntity<CiudadDomain, Ciuda
 	
 
 	@Override
-	public CiudadDomain toDomain(CiudadEntity data) {
+	public final CiudadDomain toDomain(final CiudadEntity data) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public CiudadEntity toEntity(CiudadDomain domain) {
+	public final CiudadEntity toEntity(final CiudadDomain domain) {
 		// TODO Auto-generated method stub
 		return null;
 	}

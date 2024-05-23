@@ -1,8 +1,9 @@
 package com.edu.uco.pch.business.usecase.impl.ciudad;
 
+
 import java.util.UUID;
 
-import com.edu.uco.pch.business.assembler.entity.impl.CiudadAssemblerEntity;
+import com.edu.uco.pch.business.assembler.entity.impl.DepartamentoAssemblerEntity;
 import com.edu.uco.pch.business.domain.CiudadDomain;
 import com.edu.uco.pch.business.usecase.UseCaseWhitoutReturn;
 import com.edu.uco.pch.crosscutting.Helper.ObjectHelper;
@@ -10,6 +11,7 @@ import com.edu.uco.pch.crosscutting.Helper.UUIDHelper;
 import com.edu.uco.pch.crosscutting.exception.custom.BusinessPCHException;
 import com.edu.uco.pch.data.dao.factory.DAOFactory;
 import com.edu.uco.pch.entity.CiudadEntity;
+import com.edu.uco.pch.entity.DepartamentoEntity;
 
 public final class RegistrarCiudad implements UseCaseWhitoutReturn<CiudadDomain> {
 	
@@ -31,30 +33,44 @@ public final class RegistrarCiudad implements UseCaseWhitoutReturn<CiudadDomain>
 	public void execute(final CiudadDomain data) {
 		// 1. validar que los datos requeridos par el caso de uso sean correctos a nivel de tipo de dato, rango, formato
 		// 2. Validar que no exista una misma ciudad para un mismo departamento
+		validarCiudadMismoNombreMismoDepartamento(data.getNombre(),
+				data.getDepartamento().getId());
 		
-		
-//		var ciudadEntoty = CiudadEntity.build().setId(generarIdentificadorCiudad()).setNombre(null)
-//		
-//		// 3. validar que no exista otra ciudad con el mismo identificador
-//		private final UUID generarIdentificadorCiudad() {
-//			UUID id = UUIDHelper.generarUUIDDefecto();
-//			boolean existeId = true;
-//			
-//			while (existeId) {
-//				id = UUIDHelper.generarUUIDDefecto();
-//				var ciudadEntity = CiudadEntity.build().setId(id);
-//				var resultados = factory.getCiudadDAO().consultar(CiudadEntity);
-//				existeId = !resultados.isEmpty();
-//			}
-//			return id;
-//		}
-		
-		
-		
-		// 4. Guardar la nueva tarea
-		var ciudadEntity = CiudadAssemblerEntity.getInstance().toEntity(data);
-		factory.getCiudadDAO().Create(ciudadEntity);
-		
-	}
+		// 3. validar que no exista otra ciudad con el mismo identificador
 
+		var ciudadEntity = CiudadEntity.build().setId(generarIdentificadorCiudad())
+				.setNombre(data.getNombre())
+				.setDepartamento(DepartamentoAssemblerEntity.getInstance()
+						.toEntity(data.getDepartamento()));
+						factory.getCiudadDAO().Create(ciudadEntity);
+	}
+		
+		private final UUID generarIdentificadorCiudad() {
+			UUID id = UUIDHelper.generate();
+			boolean existeId = true;
+			
+			while (existeId) {
+				id = UUIDHelper.generate();
+				var ciudadEntity = CiudadEntity.build().setId(id);
+				var resultados = factory.getCiudadDAO().consultar(ciudadEntity);
+				existeId = !resultados.isEmpty();
+			}
+			return id;
+		}
+		
+		private final void validarCiudadMismoNombreMismoDepartamento(
+				final String nombreCiudad, final UUID idDepartamento) {
+			var ciudadEntity = CiudadEntity.build()
+					.setNombre(nombreCiudad)
+					.setDepartamento(DepartamentoEntity.build().setId(idDepartamento));
+			
+			var resultado = factory.getCiudadDAO().consultar(ciudadEntity);
+			
+			if(!resultado.isEmpty()) {
+				var mensajeUsuario = "Ya existe una ciudad con el nombre \"${1}\" asociada al departamento";
+				throw new BusinessPCHException(mensajeUsuario);
+			}
+		}
+		
 }
+
