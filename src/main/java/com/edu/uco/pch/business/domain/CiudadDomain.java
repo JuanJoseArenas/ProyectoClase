@@ -37,7 +37,7 @@ public class CiudadDomain {
 	}
 	
 	
-	private final UUID getId() {
+	public final UUID getId() {
 		return id;
 	}
 	

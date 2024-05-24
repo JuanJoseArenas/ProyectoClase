@@ -3,6 +3,7 @@ package com.edu.uco.pch.business.assembler.dto.impl;
 import com.edu.uco.pch.business.assembler.dto.AssemblerDTO;
 import com.edu.uco.pch.business.domain.CiudadDomain;
 import com.edu.uco.pch.business.domain.DepartamentoDomain;
+import com.edu.uco.pch.crosscutting.Helper.ObjectHelper;
 import com.edu.uco.pch.dto.CiudadDTO;
 import com.edu.uco.pch.dto.DepartamentoDTO;
 
@@ -26,17 +27,18 @@ public final class CiudadAssemblerDTO implements AssemblerDTO<CiudadDomain, Ciud
 	
 	@Override
 	public CiudadDomain toDomain(CiudadDTO data) {
-		// TODO Auto-generated method stub
-		return null;
+		var ciudadDtoTmp = ObjectHelper.getObjectHelper().getDefaultValue(data, CiudadDTO.build());
+		var departamentoDomain = departamentoAssembler.toDomain(ciudadDtoTmp.getDepartamento());
+		return CiudadDomain.build(ciudadDtoTmp.getId(), ciudadDtoTmp.getNombre(), departamentoDomain);
 	}
 
 	@Override
 	public CiudadDTO toDto(CiudadDomain domain) {
-		// TODO Auto-generated method stub
-		return null;
+		var ciudadDomainTmp = ObjectHelper.getObjectHelper().getDefaultValue(domain, CiudadDomain.build());
+		var departamentoDTO = departamentoAssembler.toDto(ciudadDomainTmp.getDepartamento());
+		return CiudadDTO.build().setId(ciudadDomainTmp.getId()).setNombre(ciudadDomainTmp.getNombre())
+				.setDepartamento(departamentoDTO);
 	}
 
-
-	
 
 }
