@@ -48,9 +48,5 @@ public final class MessageCatalogStrategy {
 			final String...parametros) {
 		return TextHelper.reemplazarParametro(getMensaje(codigo, parametros).getContenido(), parametros) ;
 	}
-	
-	public static void main(String[] args) {
-		System.out.println(getContenidoMensaje(CodigoMensaje.M00005 , "asbgjebg"));
-	}
 
 }

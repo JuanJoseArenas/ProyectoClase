@@ -1,5 +1,8 @@
 package com.edu.uco.pch.business.assembler.dto.impl;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.edu.uco.pch.business.assembler.dto.AssemblerDTO;
 import com.edu.uco.pch.business.domain.CiudadDomain;
 import com.edu.uco.pch.business.domain.DepartamentoDomain;
@@ -38,6 +41,30 @@ public final class CiudadAssemblerDTO implements AssemblerDTO<CiudadDomain, Ciud
 		var departamentoDTO = departamentoAssembler.toDto(ciudadDomainTmp.getDepartamento());
 		return CiudadDTO.build().setId(ciudadDomainTmp.getId()).setNombre(ciudadDomainTmp.getNombre())
 				.setDepartamento(departamentoDTO);
+	}
+
+	@Override
+	public final List<CiudadDomain> toDomainCollection(final List<CiudadDTO> dtoCollection) {
+		var dtoCollectionTmp = ObjectHelper.getObjectHelper()
+				.getDefaultValue(dtoCollection, new ArrayList<CiudadDTO>());
+		
+		var resultadosDomain = new ArrayList<CiudadDomain>();
+		
+		
+		for (CiudadDTO ciudadDto : dtoCollectionTmp) {
+			var ciudadDomainTmp = toDomain(ciudadDto);
+			resultadosDomain.add(ciudadDomainTmp);
+		}
+		return resultadosDomain;
+	}
+
+	@Override
+	public final List<CiudadDTO> toDtoCollection(final List<CiudadDomain> domainCollection) {
+		var domainCollectionTmp = ObjectHelper.getObjectHelper()
+				.getDefaultValue(domainCollection, new ArrayList<CiudadDomain>());
+		
+		
+		return domainCollectionTmp.stream().map(this ::toDto).toList();
 	}
 
 

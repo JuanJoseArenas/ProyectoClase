@@ -3,6 +3,7 @@ package com.edu.uco.pch.dto;
 import java.util.UUID;
 
 import com.edu.uco.pch.crosscutting.Helper.TextHelper;
+import com.edu.uco.pch.crosscutting.Helper.UUIDHelper;
 
 public final class PaisDTO {
 	private UUID id;
@@ -10,6 +11,8 @@ public final class PaisDTO {
 	
 	public PaisDTO() {
 		super();
+		setId(UUIDHelper.getDefault());
+		setNombre(TextHelper.EMPTY);
 		
 	}
 	

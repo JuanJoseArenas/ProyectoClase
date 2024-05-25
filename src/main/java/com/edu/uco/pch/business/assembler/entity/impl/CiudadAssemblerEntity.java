@@ -1,9 +1,13 @@
 package com.edu.uco.pch.business.assembler.entity.impl;
 
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.edu.uco.pch.business.assembler.entity.AssembleEntity;
 import com.edu.uco.pch.business.domain.CiudadDomain;
 import com.edu.uco.pch.business.domain.DepartamentoDomain;
+import com.edu.uco.pch.crosscutting.Helper.ObjectHelper;
 import com.edu.uco.pch.entity.CiudadEntity;
 import com.edu.uco.pch.entity.DepartamentoEntity;
 
@@ -36,6 +40,14 @@ public class CiudadAssemblerEntity implements AssembleEntity<CiudadDomain, Ciuda
 		return null;
 	}
 
-
+	@Override
+	public List<CiudadDomain> toDomainCollection(List<CiudadEntity> entityCollection) {
+		var entityCollectioTmp = ObjectHelper.getObjectHelper()
+				.getDefaultValue(entityCollection, new ArrayList<CiudadEntity>());
+		
+		return entityCollectioTmp.stream()
+				.map(this :: toDomain)
+				.toList();
+	}
 
 }
