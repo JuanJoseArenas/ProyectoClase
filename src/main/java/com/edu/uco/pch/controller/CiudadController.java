@@ -57,7 +57,7 @@ public final class CiudadController {
 			excepcion.printStackTrace();
 		}
 
-		return new ResponseEntity<CiudadResponse>(ciudadResponse, httpStatusCode);
+		return new ResponseEntity<>(ciudadResponse, httpStatusCode);
 
 	}
 	
@@ -135,7 +135,7 @@ public final class CiudadController {
 //			var facade = new ModificarCiudadFacade();
 			
 //			facade.execute(id);
-			ciudadResponse.getMensajes().add("Ciudades eliminada Exitosamente");
+			ciudadResponse.getMensajes().add("Ciudades Modificada Exitosamente");
 			
 
 		} catch (final PCHException excepcion) {
@@ -146,7 +146,7 @@ public final class CiudadController {
 		} catch (final Exception excepcion) {
 			httpStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;
 
-			var mensajeUsuario = "Se ha presentado un problema tratando de eliminar la informacion de ciudad";
+			var mensajeUsuario = "Se ha presentado un problema tratando de Modificar la informacion de ciudad";
 			ciudadResponse.getMensajes().add(mensajeUsuario);
 
 			excepcion.printStackTrace();

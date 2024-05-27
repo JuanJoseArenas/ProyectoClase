@@ -30,14 +30,17 @@ public class CiudadAssemblerEntity implements AssembleEntity<CiudadDomain, Ciuda
 
 	@Override
 	public final CiudadDomain toDomain(final CiudadEntity data) {
-		// TODO Auto-generated method stub
-		return null;
+		var ciudadEntityTmp = ObjectHelper.getObjectHelper().getDefaultValue(data, CiudadEntity.build());
+		var departamentoDomain = departamentoAssembler.toDomain(ciudadEntityTmp.getDepartamento());
+		return CiudadDomain.build(ciudadEntityTmp.getId(), ciudadEntityTmp.getNombre(), departamentoDomain);
 	}
 
 	@Override
 	public final CiudadEntity toEntity(final CiudadDomain domain) {
-		// TODO Auto-generated method stub
-		return null;
+		var ciudadDomainTmp = ObjectHelper.getObjectHelper().getDefaultValue(domain, CiudadDomain.build());
+		var departamentoEntity = departamentoAssembler.toEntity(ciudadDomainTmp.getDepartamento());
+		return CiudadEntity.build().setId(ciudadDomainTmp.getId()).setNombre(ciudadDomainTmp.getNombre())
+				.setDepartamento(departamentoEntity);
 	}
 
 	@Override

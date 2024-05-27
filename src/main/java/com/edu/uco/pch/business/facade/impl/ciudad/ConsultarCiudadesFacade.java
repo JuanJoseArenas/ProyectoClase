@@ -12,33 +12,33 @@ import com.edu.uco.pch.dto.CiudadDTO;
 
 public final class ConsultarCiudadesFacade implements FacadeWhitReturn<CiudadDTO, List<CiudadDTO>> {
 
-
 	private DAOFactory daoFactory;
-	
+
 	public ConsultarCiudadesFacade() {
 		daoFactory = DAOFactory.getFactory();
 	}
 
 	@Override
-	public List<CiudadDTO> execute(CiudadDTO dto) {
+	public List<CiudadDTO> execute(final CiudadDTO dto) {
+
 		try {
-		
-			var useCase = new ConsultarCiudades(daoFactory);
+			var usecase = new ConsultarCiudades(daoFactory);
 			var ciudadDomain = CiudadAssemblerDTO.getInstance().toDomain(dto);
-			var resultadosDomain = useCase.execute(ciudadDomain);
+			var resultadosDomain = usecase.execute(ciudadDomain);
 			return CiudadAssemblerDTO.getInstance().toDtoCollection(resultadosDomain);
 
-			
-		} catch (PCHException excepcion) {
-			throw excepcion;
-		} catch (Exception excepcion){
-			
-			var mensajeUsuaro = "Se ha presentado un problema tratando de consultar la informacion de la ciudad";
-			var mensajeTecnico = "Se ha presentado un problema INESPERADO tratando de consultar la informacion de la Ciudad";
-			
-			throw new BusinessPCHException(mensajeTecnico, mensajeUsuaro, excepcion);
+		} catch (final PCHException exception) {
+			throw exception;
+		} catch (final Exception exception) {
+
+			var mensajeUsuario = "Se ha presentado un problema consultar la informacion de las ciudad";
+			var mensajeTecnico = "Se ha presentado un problema INESPERADO tratando de consultar la ciudad";
+
+			throw new BusinessPCHException(mensajeTecnico, mensajeUsuario, exception);
+
 		} finally {
 			daoFactory.cerrarConexion();
 		}
 	}
+
 }
